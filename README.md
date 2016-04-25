@@ -3,9 +3,11 @@
 _Ugh._
 
 #Rails UI Booster
+Turns your basic scaffold into something that's at least tolerable to look at... _More to come!_
+![Ugh](http://i.imgur.com/OInuIHr.png)
+_Oooooooooooooo!_
 
-_Images coming soon!_
-
+How to use RTrain
 **Install**
 ```
 gem install rtrain
@@ -14,3 +16,13 @@ gem install rtrain
 ```
 gem 'rtrain', '~> 0.1.1'
 ```
+
+**After generating a scaffold, in your Rails application open up irb in the command line and enter**
+```
+require 'rtrain'
+```
+and
+```
+RTrain.run
+```
+**That's it! Now your Rails application is equipped with an RTrain!**
