@@ -14,7 +14,7 @@ gem install rtrain
 ```
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.1.4'
+gem 'rtrain', '~> 0.1.3'
 ```
 
 **After generating a scaffold, in your Rails application open up irb in the command line and enter**
