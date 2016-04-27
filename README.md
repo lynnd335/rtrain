@@ -5,7 +5,7 @@ _Ugh._
 #Rails UI Booster
 Turns your basic scaffold into something that's at least tolerable to look at... _More to come!_
 
-[Ugh](http://i.imgur.com/xzbeMWC.png)
+![Ugh](http://i.imgur.com/xzbeMWC.png)
 _Oooooooooooooo!_
 
 How to use RTrain
