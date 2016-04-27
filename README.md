@@ -14,15 +14,13 @@ gem install rtrain
 ```
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.1.1'
+gem 'rtrain', '~> 0.1.4'
 ```
 
-**After generating a scaffold, in your Rails application open up irb in the command line and enter**
+**After generating a scaffold, in your Rails application open up irb in the command line and run the generator:**
+
 ```
-require 'rtrain'
+rails generate rtrain:install
 ```
-and
-```
-RTrain.run
-```
+
 **That's it! Now your Rails application is equipped with an RTrain!**
