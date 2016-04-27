@@ -12,11 +12,11 @@ How to use RTrain
 
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.1.4'
+gem 'rtrain', '~> 0.1.5'
 ```
 Then `bundle install`
 
-**After generating a scaffold, in your Rails application open up irb in the command line and run the generator:**
+**After generating a scaffold, enter this into the command line:**
 
 ```
 rails generate rtrain:install
