@@ -10,10 +10,6 @@ _Oooooooooooooo!_
 
 How to use RTrain
 
-**Install**
-```
-gem install rtrain
-```
 **Put this in your Gemfile**
 ```
 gem 'rtrain', '~> 0.1.4'
