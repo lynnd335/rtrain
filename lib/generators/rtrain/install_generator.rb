@@ -49,6 +49,9 @@ module Rtrain
         ##begin add nvigation bar  
 
         if options[:add_nav]
+
+          puts 'nav'
+
           old_applayout = open("app/views/layouts/application.html.erb").read
           app_name = old_applayout.split("<title>")[1].split("</title>")[0]
           app_name = "\n<h1>"+app_name+"</h1>\n"
@@ -68,9 +71,8 @@ module Rtrain
           nav_css = "../templates/nav-bar.scss"
           nav_css_path = File.join(dir, nav_css)
           nav_css = open(nav_css_path).read
-
-        end  
-          puts "
+          
+           puts "
               ----------------------------------------------------
               Rtrain Nav Bar and App Title now active in app/views/layouts/application.html.erb\n
 
@@ -78,6 +80,8 @@ module Rtrain
               as it will be duplicated within the text of app/views/layouts/application.html.erb.
               ----------------------------------------------------
             "
+        end  
+         
         ##end add navigation bar
 
       end
