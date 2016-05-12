@@ -1,0 +1,25 @@
+#main-navbar{
+  height: 25px;
+  width: 95%;
+  background-color: black
+}
+ul#menu {
+    bottom: -10%;
+    position: relative;
+}
+
+ul#menu li {
+    display: inline;
+}
+
+ul#menu li a {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 0px 35px;
+    font-size: 18px;
+}
+
+ul#menu li a:hover {
+    background-color: orange;
+}
