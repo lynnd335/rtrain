@@ -4,11 +4,11 @@ module Rtrain
       desc "Creates a generator for Rtrain to style scaffold tables."
       class_option :copy_css, type: :boolean, desc: 'Write some nice CSS for scaffold'
       class_option :add_nav, type: :boolean, desc: 'Makes a wicked sweet nav bar for your rails app'
-
+      class_option :add_homepage, type: :boolean, desc: 'Adds a home page controller and view and updates it to be the root URL'
       
       
       def gem_info
-        return if options.copy_css? || options.add_nav?
+        return if options.copy_css? || options.add_nav? || options.add_homepage?
               puts "
               ----------------------------------------------------
               Rtrain needs an argument to continue.
@@ -17,6 +17,7 @@ module Rtrain
               \n
                  --copy_css
                  --add_nav
+                 --add_homepage
               \n
               Refer to the README at https://github.com/lynnd335/rtrain
               for details and illustrations of each option's executions
@@ -82,9 +83,38 @@ module Rtrain
               ----------------------------------------------------
             "
         end  
-         
+
         ##end add navigation bar
 
+        ##begin add main page
+
+        if options[:add_homepage]
+          home_page = "../templates/home.html.erb"
+          home_page_path = File.join(dir, home_page)
+          FileUtils.mkdir("app/views/main")
+          main_view = "app/views/main/"
+          FileUtils.cp(home_page_path, main_view)
+
+          main = "../controllers/main_controller.rb"
+          main_path = File.join(dir, main)
+          controllers = "app/controllers"
+          FileUtils.cp(main_path, controllers)
+
+          root = open("config/routes.rb").read
+          root ["# root 'welcome#index'"] = "root 'pages#show', page: 'home'
+            \nRails.application.routes.draw do
+            get '/pages/:page' => 'pages#show'
+            end"
+           routes = open("config/routes.rb","w")
+           routes.write(root)
+           routes.close  
+          puts "
+              ----------------------------------------------------
+              Rtrain Homepage Now Active and set as root URL
+              ----------------------------------------------------
+            "
+        end  
+       
       end
     end
   end
