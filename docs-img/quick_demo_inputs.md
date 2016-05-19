@@ -19,7 +19,7 @@ Go back to the command line
 ```
 rails g scaffold Person name:string address:string phone:string email_address:string about:string
 
-rake db:migrate
+rake db:create db:migrate
 
 rails g scaffold posts subject:string content:text
 
