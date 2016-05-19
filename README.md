@@ -5,13 +5,14 @@ _Ugh._
 #Rails Downloadable Content (DLC) Expansion Pack
 Adds better CSS to scaffold, HTML navigation, more features are in the pipe, so stay tuned ... _DLC Season Pass Coming Soon Too!_
 
-How to use RTrain
+
+#How to use RTrain
 
 _It is HIGHLY recommended that developers using RTrain execute these generator commands in sequence, and to always scaffold generate all models!!!_
 
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.1.6'
+gem 'rtrain', '~> 0.2.0'
 ```
 Then `bundle install`
 
