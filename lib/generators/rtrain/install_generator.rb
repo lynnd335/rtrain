@@ -89,11 +89,15 @@ module Rtrain
         ##begin add main page
 
         if options[:add_homepage]
+          FileUtils.mkdir("app/views/main/")
+
           home_page = "../templates/home.html.erb"
           home_page_path = File.join(dir, home_page)
-          FileUtils.mkdir("app/views/main")
-          main_view = "app/views/main/"
-          FileUtils.cp(home_page_path, main_view)
+          main_view_dir = "app/views/main/"
+          FileUtils.cp(home_page_path, main_view_dir)
+          # home = open("app/views/main/home.html.erb","w")
+          # home.write(home_page_content)
+          # home.close
 
           main = "../controllers/main_controller.rb"
           main_path = File.join(dir, main)
@@ -101,13 +105,11 @@ module Rtrain
           FileUtils.cp(main_path, controllers)
 
           root = open("config/routes.rb").read
-          root ["# root 'welcome#index'"] = "root 'pages#show', page: 'home'
-            \nRails.application.routes.draw do
-            get '/pages/:page' => 'pages#show'
-            end"
-           routes = open("config/routes.rb","w")
-           routes.write(root)
-           routes.close  
+          root ["# root 'welcome#index'"] = "root 'main#show', page: 'home'
+          get '/main/:page' => 'pages#show'"
+          routes = open("config/routes.rb","w")
+          routes.write(root)
+          routes.close  
           puts "
               ----------------------------------------------------
               Rtrain Homepage Now Active and set as root URL

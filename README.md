@@ -7,6 +7,8 @@ Adds better CSS to scaffold, HTML navigation, more features are in the pipe, so 
 
 How to use RTrain
 
+_It is HIGHLY recommended that developers using RTrain execute these generator commands in sequence, and to always scaffold generate all models!!!_
+
 **Put this in your Gemfile**
 ```
 gem 'rtrain', '~> 0.1.6'
@@ -23,10 +25,17 @@ _Oooooooooooooo!_
 
 Turns your basic scaffold into something that's at least tolerable to look at!
 
-**New! Add a sweet nav bar!**
+**Add a sweet nav bar!**
 ```
 rails generate rtrain:install --copy_css
 ```
 ![Ugh](http://i.imgur.com/hywhd0t.png)
 
-**That's it! Now your Rails application is equipped with an RTrain!**
+**Add a home page controller and view, and set it as the root**
+```
+rails generate rtrain:install --add_homepage
+```
+![Ugh](http://i.imgur.com/LuNqg3O.png)
+
+
+More to come! Stay tuned!
