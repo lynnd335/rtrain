@@ -49,10 +49,12 @@ module Rtrain
         ##add lines to config/routes.rb for auth
         routes_rb = open("config/routes.rb").read
           if !routes_rb.match("#session routes here")
-            routes_rb[routes_rb.index('#')] = "\n#session routes here\n"
+            routes_rb['#'] = "\n#session routes here\n#"
           end 
-                  
-         ##end 
+        routes_rb_write = open("config/routes.rb", "w")
+        routes_rb_write.write(routes_rb)
+        routes_rb_write.close          
+        ##end 
 
         ##Begin Copy CSS
 
@@ -104,7 +106,7 @@ module Rtrain
           if rtrain_log_read.match('_nav_added')
             old_menu = read_applayout.split("<ul id='menu'>")[1].split("</ul>")[0]
               if rtrain_log_read.match('_main_view_controller_added')
-                list_items.unshift("<%=link_to 'Main', '/'%></li>")
+                list_items.unshift("<li><%=link_to 'Main', '/'%></li>")
               end
             new_menu = list_items.join("\n\t\t")
             read_applayout [old_menu] = new_menu
@@ -177,7 +179,7 @@ module Rtrain
         
 
         if options[:add_user_sessions]
-          if !rtrain_log_read.match('_nav_added')
+          if !rtrain_log_read.match('_user_sessions_added')
 
             FileUtils.mkdir("app/views/users/")
             new_users = "../users/new.html.erb"
@@ -218,7 +220,7 @@ module Rtrain
             if app_controller.match("private")
               app_controller ["private"] = "private" + "\n" + sessions_app_controller
             else
-              app_controller[app_controller.rindex('end')...(app_controller.rindex('end') + 'end'.length)] = "test"
+              app_controller[app_controller.rindex('end')...(app_controller.rindex('end') + 'end'.length)] = app_controller + "private" + sessions_app_controller
             end
 
             current_app_controller = open("app/controllers/application_controller.rb", "w")
@@ -277,7 +279,7 @@ module Rtrain
             routes.write(sesh_route)
             routes.close
 
-            system("bin/rails g migration CreateUser email:string crypted_password:string password_salt:string persistence_token:string")
+            system("rails g migration CreateUser email:string crypted_password:string password_salt:string persistence_token:string")
             mig = Dir.glob("db/migrate/**.rb")[-1]
             mig_read = open(mig).read
             mig_read ["end"] = "\nt.timestamps null: false
