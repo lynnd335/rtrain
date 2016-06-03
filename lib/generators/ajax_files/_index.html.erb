@@ -1,0 +1,10 @@
+<% @rt_mod_low_plur.order('id DESC').each do |rt_mod_low| %>
+  <tr>
+    
+    <!-- rt_mod_cols -->
+
+    <td><%= link_to "Edit", edit_rt_mod_low_path(rt_mod_low), remote: true%></td>
+    <td><%= link_to "Delete", rt_mod_low, method: :delete, remote: true%></td>
+
+  </tr>
+<% end %>

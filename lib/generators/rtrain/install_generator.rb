@@ -6,9 +6,15 @@ module Rtrain
       class_option :add_nav, type: :boolean, desc: 'Makes a wicked sweet nav bar for your rails app'
       class_option :add_homepage, type: :boolean, desc: 'Adds a home page controller and view and updates it to be the root URL'
       class_option :add_user_sessions, type: :boolean, desc: 'Builds user and user sessions models, adds Sign-up and sign-in links to application layout, requires login before records can be added to a form'
-      
+      class_option :ajaxify, type: :boolean, desc: 'Overhauls all views into ajax-ready form input'
+
+      def require_gems
+        gem('authlogic')
+        gem('ffaker')
+      end 
+
       def gem_info
-        return if options.copy_css? || options.add_nav? || options.add_homepage? || options.add_user_sessions?
+        return if options.copy_css? || options.add_nav? || options.add_homepage? || options.add_user_sessions? || options.ajaxify?
               puts "
               ----------------------------------------------------
               Rtrain needs an argument to continue.
@@ -19,6 +25,7 @@ module Rtrain
                  --add_nav
                  --add_homepage
                  --add_user_sessions
+                 --ajaxify
               \n
               Refer to the README at https://github.com/lynnd335/rtrain
               for details and illustrations of each option's executions
@@ -27,9 +34,9 @@ module Rtrain
         end
 
       def run_rtrain
-        dir = File.dirname(__FILE__)
-        
 
+
+        dir = File.dirname(__FILE__)
 
         ##create rtrain logfile or open it if it already exists
           if !File.exist?("rtrain_log.txt")
@@ -304,9 +311,109 @@ module Rtrain
                 ----------------------------------------------------
               "
            end 
+          end
+
+           ##end users sessions install
+
+           ##begin ajaxify
+
+          if options[:ajaxify]
+
+            ajax_css = "../templates/ajax.scss"
+            ajax_css_path = File.join(dir, ajax_css)
+            stylesheets = "app/assets/stylesheets/"
+            FileUtils.cp(ajax_css_path, stylesheets)
+            
+            ajax_files = ["../ajax_files/_delete.html.erb", "../ajax_files/_edit.html.erb", "../ajax_files/_form.html.erb", "../ajax_files/_index.html.erb", "../ajax_files/_new.html.erb", "../ajax_files/_save.js.erb", "../ajax_files/create.js.erb", "../ajax_files/delete.js.erb", "../ajax_files/destroy.js.erb", "../ajax_files/edit.js.erb", "../ajax_files/index.html.erb", "../ajax_files/new.js.erb", "../ajax_files/update.js.erb"]
+
+            tables = ActiveRecord::Base.connection.tables.map{|x|x.classify.safe_constantize}.compact
+            
+            controllers = (tables.map{|x|x.name.downcase.pluralize + "_controller.rb"} - ["users_controller.rb"]).join(", ")
+
+            stamp = (Time.now).to_s
+            FileUtils.mkdir("rtrain_temp-" + stamp + "/")
+            ajax_controller = "../controllers/ajax_controller.rb"
+            ajax_controller_path = File.join(dir, ajax_controller)
+            rtrain_temp = "rtrain_temp-" + stamp + "/"
+            FileUtils.cp(ajax_controller_path, rtrain_temp)
+            
+            tables.each_with_index do |t, i|
+              if t.name != "User"
+                
+                t_cols = tables[i].columns.map{|x|x.name} 
+                t_cols -= ["id", "created_at", "updated_at"]
+                view_dir = 'app/views/' + t.name.downcase.pluralize + '/'
+
+                FileUtils.rm_rf(Dir.glob(view_dir + "*"))
+
+                ajax_files.each do |a|
+                  ajax_files_path = File.join(dir, a)
+                  FileUtils.cp(ajax_files_path, view_dir)
+                end
+
+                docs = Dir[view_dir + "*"]
+
+                def replacer(txt,filler,replace)
+                  if txt.match(filler)
+                    txt.gsub! filler, replace  
+                  end
+                end
+
+
+                new_controller_read = open("rtrain_temp-" + stamp + "/ajax_controller.rb").read
+                controller_read = open("app/controllers/" + t.name.downcase.pluralize + "_controller.rb").read
+                old_controller = "app/controllers/" + t.name.downcase.pluralize + "_controller.rb"
+
+                FileUtils.cp(old_controller, rtrain_temp)
+                
+
+                controller_write = open("app/controllers/" + t.name.downcase.pluralize + "_controller.rb", "w")
+
+                replacer(new_controller_read,"rt_mod_cap_plur",t.name.capitalize.pluralize)
+                replacer(new_controller_read,"rt_mod_low_plur",t.name.downcase.pluralize)
+                replacer(new_controller_read,"rt_mod_cap",t.name.capitalize)
+                replacer(new_controller_read,"rt_mod_low",t.name.downcase)
+                replacer(new_controller_read,"<-- permit_cols -->",t_cols.map{|c|":"+c}.join(", "))
+
+                controller_write.write(new_controller_read)  
+                controller_write.close
+
+                docs.each do |doc|
+                  doc_read = open(doc).read
+                  doc_write = open(doc,"w")
+
+                  replacer(doc_read,"rt_mod_cap_plur",t.name.capitalize.pluralize)
+                  replacer(doc_read,"rt_mod_low_plur",t.name.downcase.pluralize)
+                  replacer(doc_read,"rt_mod_cap",t.name.capitalize)
+                  replacer(doc_read,"rt_mod_low",t.name.downcase)
+                  replacer(doc_read,"<!-- rt_mod_cols -->",t_cols.map{|c|"<td><%= "+t.name.downcase + "." + c.downcase + " %></td>"}.join("\n\t\t\t"))
+                  replacer(doc_read,"<!-- rt_mod_hdr_cols -->",t_cols.map{|c|"<td>" + c.capitalize + "</td>"}.join("\n\t\t\t"))
+                  replacer(doc_read,"<!-- rt_mod_fields -->",t_cols.map{|c|"<div class='field'>\n\t<%= f.label :" + c.downcase + " %><br>\n<%= f.text_field :" + c.downcase + '%></div>'}.join("\n\t\t\t"))
+                  replacer(doc_read,"rt_mod_1st_col",t_cols[0].capitalize)
+
+                  doc_write.write(doc_read)
+                  doc_write.close
+
+                end 
+
+              end 
+            end
+            puts "
+                ----------------------------------------------------
+                Rails App Views and Controllers Ajaxified
+
+                NOTE: " + controllers + " have each been overwritten. 
+                
+                The prior existing versions of those files have been 
+                copied into the directory named " + rtrain_temp + "in 
+                the main directory of this app and can be found there.
+                ----------------------------------------------------
+              "
+            open(rtrain_log, 'a') { |f| f.puts Time.now().to_s() + "_ajaxified" + "\n"}  
           end  
         
-        ##end users sessions install
+          ##end ajaxify
+
         rtrain_log.close
       end
     end

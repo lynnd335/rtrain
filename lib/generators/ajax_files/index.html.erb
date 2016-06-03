@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+<script>
+  $("#rt_mod_low-modal").hide();
+</script>
+
+<div id="view-info">
+  <h2>rt_mod_cap_plur Index View</h2> 
+  <button id="add-button">
+  <%= link_to '+ Add New rt_mod_cap', new_rt_mod_low_path, remote: true %></button>
+</div>
+
+<div id="rt_mod_low-modal" class="modal"></div>  
+  <table>
+  <thead>
+    <tr>
+        <!-- rt_mod_hdr_cols -->
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody class="rt_mod_low-index">
+      <%= render "index" %>
+    </tbody>
+  </table>
+</div>

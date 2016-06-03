@@ -1,0 +1,24 @@
+<%if !current_user%>
+  <div id='blank'>
+    <div id='alert'>
+      <h3>Must be SIGNED IN to add rt_mod_cap!</h3>
+    </div>
+  </div> 
+<%end%>
+
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for @rt_mod_low, remote: true, html: { style: "display:inline;" } do |f| %>
+        <ul class="errors"></ul>
+
+        <!-- rt_mod_fields -->
+        
+      
+      <div class="actions">
+        <%= f.submit class: "ajax-form-button" %>
+        <%= link_to "Cancel", "#", class: "ajax-form-button", data: {dismiss: "modal"} %>
+      </div>
+      </div>
+    <% end %>
+  </div>
+</div>

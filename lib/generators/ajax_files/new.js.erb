@@ -1,0 +1,6 @@
+$("#rt_mod_low-modal").html("<%= escape_javascript(render 'new') %>");
+$("#rt_mod_low-modal").show();
+$("#rt_mod_low-modal").draggable().resizable({ handles: "n, e, s, w, se, sw, nw, ne" });
+$(".ajax-form-button").click(function(){
+	$("#rt_mod_low-modal").hide();
+})

@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+<span class="modalheader-text">Delete rt_mod_cap</span>
+    <a class="modalheader-a" href ="#"><img class="xbutton" style="float: right;" height="12px" width="12px" src="close-button.png"></a>  
+    </div>
+  <div class="modal-body">
+  <ul class="errors"></ul>
+  Are you sure you wish to delete <b><%= @rt_mod_low.name %></b>?
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Yes, Delete This rt_mod_cap", rt_mod_low_path(@rt_mod_low), method: :delete, remote: true, class: "btn btn-danger" %>
+    <%= link_to "No, Please Don't", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+  </div>
+  </div>
+</div>
