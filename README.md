@@ -11,7 +11,7 @@ _It is HIGHLY recommended that developers using RTrain execute these generator c
 
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.2.6'
+gem 'rtrain', '~> 0.2.7'
 ```
 Then `bundle install`
 
