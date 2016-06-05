@@ -37,7 +37,7 @@ rails generate rtrain:install --add_homepage
 ```
 ![alt text](http://i.imgur.com/LuNqg3O.png)
 
-**Add User Authentication Sessions (email & password login)
+**Add User Authentication Sessions (email & password login)**
 
 ```
 rails generate rtrain:install --add_user_sessions
@@ -48,7 +48,7 @@ Special thanks to Justin Weiss for the template -
 http://www.justinweiss.com/articles/how-rails-sessions-work/
 
 
-**Add Ajax Crud (no page refreshes on create, update, or destroy!)
+**Add Ajax Crud (no page refreshes on create, update, or destroy!)**
 ```
 rails generate rtrain:install --ajaxify
 ```
