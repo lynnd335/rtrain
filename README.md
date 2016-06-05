@@ -20,7 +20,7 @@ Then `bundle install`
 ```
 rails generate rtrain:install --copy_css
 ```
-(http://i.imgur.com/xzbeMWC.png)
+![alt text](http://i.imgur.com/xzbeMWC.png)
 _Oooooooooooooo!_
 
 Turns your basic scaffold into something that's at least tolerable to look at!
@@ -29,20 +29,20 @@ Turns your basic scaffold into something that's at least tolerable to look at!
 ```
 rails generate rtrain:install --copy_css
 ```
-(http://i.imgur.com/hywhd0t.png)
+![alt text](http://i.imgur.com/hywhd0t.png)
 
 **Add a home page controller and view, and set it as the root**
 ```
 rails generate rtrain:install --add_homepage
 ```
-(http://i.imgur.com/LuNqg3O.png)
+![alt text](http://i.imgur.com/LuNqg3O.png)
 
 **Add User Authentication Sessions (email & password login)
 
 ```
 rails generate rtrain:install --add_user_sessions
 ```
-(http://i.imgur.com/oyNYFbz.png)
+![alt text](http://i.imgur.com/oyNYFbz.png)
 
 Special thanks to Justin Weiss for the template -
 http://www.justinweiss.com/articles/how-rails-sessions-work/
@@ -52,7 +52,7 @@ http://www.justinweiss.com/articles/how-rails-sessions-work/
 ```
 rails generate rtrain:install --ajaxify
 ```
-(http://i.imgur.com/Zm2iP6W.png)
+![alt text](http://i.imgur.com/Zm2iP6W.png)
 
 Special thanks to Rich on Rails for the template -
 https://richonrails.com/articles/basic-ajax-in-ruby-on-rails
