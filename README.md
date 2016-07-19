@@ -11,7 +11,7 @@ _It is HIGHLY recommended that developers using RTrain execute these generator c
 
 **Put this in your Gemfile**
 ```
-gem 'rtrain', '~> 0.2.7'
+gem 'rtrain'
 ```
 Then `bundle install`
 
@@ -27,7 +27,7 @@ Turns your basic scaffold into something that's at least tolerable to look at!
 
 **Add a sweet nav bar!**
 ```
-rails generate rtrain:install --copy_css
+rails generate rtrain:install --add_nav
 ```
 ![alt text](http://i.imgur.com/hywhd0t.png)
 
